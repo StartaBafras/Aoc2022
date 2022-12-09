@@ -4,7 +4,7 @@
 
 
 
-#define STACK_SIZE 10
+#define STACK_SIZE 200
 #define INPUT_SIZE 40
 #define MAX_STACK 9
 
@@ -95,14 +95,29 @@ int main(void)
     read_supply("d5.txt",stack_array);
     reverse_stack(stack_array);
 
+
     FILE *file = fopen("d5.txt","r");
+    char *temp = malloc(40);
+    for(int i=0; i<10; i++) fgets(temp,40,file);
+    free(temp);
+
+    int from,to,piece;
+
     while (!feof(file))
     {
-        for(int i=0; i<10; i++) fgets(stdout,40,file);
-
+        fscanf(file,"move %d from %d to %d\n",&piece,&from,&to);
         
+        for(int i=0; i<piece;i++)
+        {
+            stack_array[to-1]->push(stack_array[to-1],stack_array[from-1]->pop(stack_array[from-1]));
+        }
     }
     
+
+    for(int i=0; i<MAX_STACK;i++)
+    {
+        printf("%c",stack_array[i]->stack[stack_array[i]->stack_level]);
+    }
 
     return 0;
 }
